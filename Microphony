@@ -1,0 +1,565 @@
+<!-- Outil de révision — La Microphonie / Techno Son -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Réviser la Microphonie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Hanken+Grotesk:ital,wght@0,400..800;1,400..600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#14110f;
+  --bg2:#1c1815;
+  --panel:#211c18;
+  --panel2:#272019;
+  --line:#3a3128;
+  --ink:#f3ece2;
+  --muted:#a89a87;
+  --amber:#f2a73d;
+  --amber-soft:#3a2c12;
+  --teal:#5fc7b8;
+  --teal-soft:#123330;
+  --rose:#e8736b;
+  --rose-soft:#3a1f1d;
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:
+    radial-gradient(1200px 600px at 80% -10%, #2a211733, transparent),
+    radial-gradient(900px 500px at -10% 110%, #12302c33, transparent),
+    var(--bg);
+  color:var(--ink);
+  font-family:"Hanken Grotesk",system-ui,sans-serif;
+  font-size:17px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px 120px}
+
+/* Header */
+header.top{
+  padding:48px 0 22px;border-bottom:1px solid var(--line);margin-bottom:0;
+}
+.kicker{font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--amber);margin:0 0 10px}
+h1.title{font-family:"Bricolage Grotesque";font-weight:800;font-size:clamp(38px,7vw,64px);line-height:.98;margin:0;letter-spacing:-.02em}
+h1.title .em{color:var(--amber)}
+.sub{color:var(--muted);max-width:620px;margin:16px 0 0;font-size:16px}
+
+/* Sticky nav */
+nav.tabs{
+  position:sticky;top:0;z-index:30;
+  display:flex;gap:6px;flex-wrap:wrap;
+  padding:12px 0;margin:0 0 8px;
+  background:linear-gradient(var(--bg) 70%, transparent);
+  backdrop-filter:blur(4px);
+}
+nav.tabs button{
+  font-family:"Space Mono",monospace;font-size:12.5px;letter-spacing:.04em;
+  color:var(--muted);background:var(--panel);border:1px solid var(--line);
+  padding:9px 14px;border-radius:999px;cursor:pointer;transition:.18s;
+}
+nav.tabs button:hover{color:var(--ink);border-color:#5a4c3a}
+nav.tabs button.active{background:var(--amber);color:#1a1206;border-color:var(--amber);font-weight:700}
+
+.view{display:none;animation:fade .4s ease}
+.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* Course sections */
+.sec{
+  background:linear-gradient(180deg,var(--panel),var(--bg2));
+  border:1px solid var(--line);border-radius:var(--radius);
+  padding:26px 26px 22px;margin:18px 0;position:relative;overflow:hidden;
+}
+.sec::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--amber)}
+.sec.teal::before{background:var(--teal)}
+.sec.rose::before{background:var(--rose)}
+.sec h2{font-family:"Bricolage Grotesque";font-weight:700;font-size:25px;margin:0 0 4px;letter-spacing:-.01em}
+.sec .tag{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:10px}
+.sec.teal .tag{color:var(--teal)}
+.sec.rose .tag{color:var(--rose)}
+h3{font-family:"Bricolage Grotesque";font-weight:700;font-size:18.5px;margin:22px 0 8px;color:var(--ink)}
+h3:first-of-type{margin-top:14px}
+p{margin:8px 0}
+.sec ul{margin:8px 0;padding-left:20px}
+.sec li{margin:5px 0}
+strong{color:#fff;font-weight:700}
+em.k{font-style:normal;color:var(--amber);font-weight:600}
+.def{color:var(--teal);font-weight:700}
+code,.mono{font-family:"Space Mono",monospace;background:#0f0d0b;border:1px solid var(--line);padding:2px 7px;border-radius:6px;font-size:14px;color:var(--teal)}
+.callout{background:var(--amber-soft);border:1px solid #5a4012;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15.5px}
+.callout b{color:var(--amber)}
+.callout.teal{background:var(--teal-soft);border-color:#1f4a45}
+.callout.teal b{color:var(--teal)}
+.callout .lbl{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;display:block;margin-bottom:5px;color:var(--amber)}
+.callout.teal .lbl{color:var(--teal)}
+
+/* pro/con grid */
+.pc{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.pc>div{border-radius:12px;padding:12px 14px;font-size:15px}
+.pc .pro{background:var(--teal-soft);border:1px solid #1f4a45}
+.pc .con{background:var(--rose-soft);border:1px solid #4a2522}
+.pc h4{margin:0 0 6px;font-family:"Bricolage Grotesque";font-size:14px;letter-spacing:.05em;text-transform:uppercase}
+.pc .pro h4{color:var(--teal)}
+.pc .con h4{color:var(--rose)}
+.pc ul{margin:0;padding-left:18px}
+.pc li{margin:3px 0;font-size:14px}
+@media(max-width:620px){.pc{grid-template-columns:1fr}}
+
+/* Numbers cheat sheet */
+.numgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:8px}
+.numcard{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:16px 14px;text-align:center}
+.numcard .v{font-family:"Bricolage Grotesque";font-weight:800;font-size:26px;color:var(--amber);line-height:1}
+.numcard .l{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.35}
+
+/* Flashcards */
+.fc-stage{display:flex;flex-direction:column;align-items:center;gap:18px;margin-top:10px}
+.fc-counter{font-family:"Space Mono",monospace;color:var(--muted);font-size:13px;letter-spacing:.1em}
+.card{
+  width:100%;max-width:560px;min-height:240px;perspective:1400px;cursor:pointer;
+}
+.card-inner{position:relative;width:100%;min-height:240px;transition:transform .55s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d}
+.card.flipped .card-inner{transform:rotateY(180deg)}
+.face{
+  position:absolute;inset:0;backface-visibility:hidden;border-radius:18px;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+  padding:30px;border:1px solid var(--line);
+}
+.face.front{background:linear-gradient(160deg,#241d16,#1a1511)}
+.face.back{background:linear-gradient(160deg,var(--teal-soft),#13110f);transform:rotateY(180deg);border-color:#1f4a45}
+.face .pill{font-family:"Space Mono",monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:14px}
+.face.back .pill{color:var(--teal)}
+.face .q{font-family:"Bricolage Grotesque";font-weight:700;font-size:21px;line-height:1.3}
+.face .a{font-size:16px;line-height:1.55}
+.face .hint{position:absolute;bottom:14px;font-size:11px;color:var(--muted);font-family:"Space Mono",monospace}
+.fc-controls{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.btn{font-family:"Hanken Grotesk";font-weight:600;font-size:15px;border-radius:10px;padding:11px 20px;cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--ink);transition:.15s}
+.btn:hover{border-color:#6a5a44}
+.btn.primary{background:var(--amber);color:#1a1206;border-color:var(--amber)}
+.btn.primary:hover{filter:brightness(1.08)}
+
+/* Quiz */
+.q-block{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:14px 0}
+.q-block .qn{font-family:"Space Mono",monospace;font-size:11px;color:var(--amber);letter-spacing:.15em}
+.q-block .qt{font-family:"Bricolage Grotesque";font-weight:700;font-size:18px;margin:6px 0 14px;line-height:1.35}
+.opt{display:block;width:100%;text-align:left;background:var(--bg2);border:1px solid var(--line);color:var(--ink);
+  padding:12px 15px;border-radius:10px;margin:7px 0;cursor:pointer;font-size:15.5px;transition:.13s;font-family:inherit}
+.opt:hover{border-color:#6a5a44;background:#241e18}
+.opt.correct{background:var(--teal-soft);border-color:var(--teal);color:#dffaf4}
+.opt.wrong{background:var(--rose-soft);border-color:var(--rose);color:#ffe2df}
+.opt.disabled{cursor:default;pointer-events:none;opacity:.85}
+.expl{font-size:14.5px;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);display:none}
+.expl.show{display:block}
+.expl b{color:var(--teal)}
+.scorebar{position:sticky;bottom:16px;margin-top:22px;background:var(--panel2);border:1px solid var(--line);border-radius:14px;
+  padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;box-shadow:0 14px 40px #0008}
+.scorebar .s{font-family:"Bricolage Grotesque";font-weight:800;font-size:24px}
+.scorebar .s span{color:var(--amber)}
+.foot{color:var(--muted);font-size:13.5px;text-align:center;margin-top:40px;font-family:"Space Mono",monospace;letter-spacing:.04em}
+.bonne{text-align:center;padding:30px;font-family:"Bricolage Grotesque";font-weight:700;font-size:20px}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <p class="kicker">Techno Son · Fiche de révision express</p>
+    <h1 class="title">La <span class="em">Microphonie</span></h1>
+    <p class="sub">Tout le cours synthétisé + chiffres clés + flashcards + quiz. Révise dans l'ordre : <em class="k">Cours → Chiffres → Flashcards → Quiz</em>. Tu vas la décrocher, cette éval.</p>
+  </header>
+
+  <nav class="tabs">
+    <button class="active" data-v="cours">📖 Le cours</button>
+    <button data-v="chiffres">🔢 Chiffres clés</button>
+    <button data-v="flash">🃏 Flashcards</button>
+    <button data-v="quiz">✅ Quiz</button>
+  </nav>
+
+  <!-- ============ COURS ============ -->
+  <section class="view active" id="cours">
+
+    <div class="sec">
+      <span class="tag">Généralités</span>
+      <h2>Qu'est-ce qu'un micro ?</h2>
+      <p>Un microphone est un <strong>transducteur acoustique → électrique</strong> : il convertit une onde sonore en signal électrique.</p>
+      <h3>Transduction électrique</h3>
+      <p>On passe d'une <em class="k">pression acoustique</em> (en Pascal, Pa) à une <em class="k">tension électrique</em> (en Volt, V).</p>
+      <h3>Usages de prise de son</h3>
+      <ul>
+        <li><strong>Prise de son naturelle</strong> : couples stéréo, captation d'ambiances.</li>
+        <li><strong>Prise de son colorée</strong> : en <em class="k">close miking</em> (micro très proche de la source).</li>
+      </ul>
+    </div>
+
+    <div class="sec">
+      <span class="tag">I · Les types de transduction électrique</span>
+      <h2>Comment le micro fabrique le signal</h2>
+
+      <h3>A — Micro à charbon</h3>
+      <p>Une électrode + des grains de charbon dont la résistance varie avec la pression sonore.</p>
+      <div class="callout"><span class="lbl">À retenir</span><b>Pas de vrai avantage</b> : ajoute beaucoup de <em class="k">couleur</em> (distorsion) et <b>nécessite une alimentation externe</b>. C'est le plus vieux / le plus mauvais.</div>
+
+      <h3>B — Micro électrodynamique (dynamique)</h3>
+      <p>La <strong>membrane</strong> bouge avec la pression de l'air et entraîne une <strong>bobine solidaire</strong> placée dans un <strong>champ magnétique permanent</strong> (un aimant). Le mouvement génère un <em class="k">courant alternatif</em>.</p>
+      <div class="callout teal"><span class="lbl">Principe physique</span><b>Loi de Lenz–Faraday</b> : un conducteur (la bobine) qui bouge dans un champ magnétique crée une tension induite.</div>
+      <p><strong>Compression acoustique / THD :</strong> quand le niveau sonore « arrive au plafond », on commence à avoir du <em class="k">THD</em> (distorsion). Plus la bobine reçoit de mouvement, plus elle a d'induction, et plus elle s'impose à la tension délivrée → le signal sature/compresse.</p>
+      <div class="pc">
+        <div class="con"><h4>Inconvénients</h4><ul>
+          <li>Niveau de sortie faible : <b>≈ 2 mV/Pa</b></li>
+          <li>Bande passante faible dans les HF : <b>&gt; 15 kHz</b> ça décroche</li>
+          <li>Mauvaise réponse aux transitoires</li>
+          <li>Pas sensible aux faibles variations de niveau</li>
+        </ul></div>
+        <div class="pro"><h4>Avantages</h4><ul>
+          <li>Pas besoin d'alimentation externe</li>
+          <li>Robuste</li>
+          <li>Supporte les fortes pressions : <b>&gt; 140 dB SPL</b></li>
+        </ul></div>
+      </div>
+
+      <h3>B.2 — Micro à ruban</h3>
+      <p><strong>Même fonctionnement que le dynamique, mais allégé</strong> : un simple <em class="k">ruban conducteur</em> (plié en accordéon) remplace à la fois la membrane ET la bobine. Il bouge dans le champ d'un aimant.</p>
+      <p>Il délivre une tension <strong>très faible</strong> → il faut de <em class="k">gros préamplis</em> derrière. Et il est <strong>très fragile</strong>.</p>
+      <div class="pc">
+        <div class="con"><h4>Inconvénients</h4><ul>
+          <li>Niveau de sortie très faible : <b>&lt; 1 mV</b></li>
+          <li>À utiliser avec un préampli très cher</li>
+          <li>Fragile, supporte mal les fortes pressions</li>
+        </ul></div>
+        <div class="pro"><h4>Avantages</h4><ul>
+          <li>BP étendue dans les HF : <b>&gt; 18 kHz</b></li>
+          <li>Meilleure réponse aux transitoires</li>
+          <li>Plus sensible aux faibles pressions</li>
+        </ul></div>
+      </div>
+      <div class="callout"><span class="lbl">Piège classique</span>C'est le micro qui a la <b>sensibilité la plus faible</b> de tous.</div>
+
+      <h3>C — Micro électrostatique (à condensateur)</h3>
+      <p>Fonctionne comme un <strong>condensateur</strong> qu'on <strong>polarise</strong> (souvent +48 V). Une plaque mobile (membrane) face à une plaque fixe (contre-électrode).</p>
+      <p class="mono" style="display:block;background:#0f0d0b;border:1px solid var(--line);padding:12px 14px;border-radius:8px;color:var(--teal);text-align:center">
+        C = k · S / d&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;C = Q / U&nbsp;&nbsp;⟺&nbsp;&nbsp;U = Q / C
+      </p>
+      <p>La membrane vibre → l'entrefer <em class="k">d</em> varie → la capacité <em class="k">C</em> varie → à charge Q constante, la <strong>tension U varie</strong> : c'est ça, le signal audio.</p>
+
+      <p><strong>C.1 — Diélectrique fluide (air)</strong> — l'air entre les plaques (ε_r ≈ 1).</p>
+      <div class="pc">
+        <div class="pro"><h4>Avantages</h4><ul>
+          <li>Niveau de sortie élevé : <b>≈ 15 mV/Pa</b></li>
+          <li>BP étendue dans les HF : <b>jusqu'à 20 kHz</b></li>
+          <li>Bonne réponse aux transitoires</li>
+          <li>Sensible aux faibles variations de pression</li>
+        </ul></div>
+        <div class="con"><h4>Inconvénients</h4><ul>
+          <li>Prix</li>
+          <li>Nécessite une alimentation</li>
+          <li>Supporte mal les fortes pressions et l'humidité</li>
+        </ul></div>
+      </div>
+
+      <p><strong>C.2 — Diélectrique solide (électret)</strong> — membrane spéciale qui a <em class="k">emmagasiné une tension</em> : elle est <strong>déjà polarisée</strong> en permanence.</p>
+      <p>Il a <strong>quand même besoin d'une alim +48 V</strong>… mais celle-ci sert à alimenter le <strong>préampli interne</strong> (pas à polariser la capsule). Elle fait un <em class="k">DC offset</em>.</p>
+      <div class="pc">
+        <div class="pro"><h4>Avantage</h4><ul><li>Haut niveau de sortie</li></ul></div>
+        <div class="con"><h4>Inconvénient</h4><ul><li>Plus de bruit de fond</li></ul></div>
+      </div>
+    </div>
+
+    <div class="sec teal">
+      <span class="tag">L'alimentation Phantom (+48 V)</span>
+      <h2>Comment ça marche</h2>
+      <ul>
+        <li><strong>Pas de différence de potentiel</strong> entre le point chaud et le point froid, grâce à <strong>4 résistances de 6,8 kΩ</strong> chacune.</li>
+        <li>La tension = différence entre la <strong>masse</strong> et un point positif de <strong>+48 V</strong>.</li>
+      </ul>
+      <div class="callout teal"><span class="lbl">L'idée</span>Le +48 V arrive identiquement sur chaud et froid (mode commun), donc il « disparaît » pour le signal audio (qui est en différentiel) mais sert à alimenter la capsule/le préampli.</div>
+    </div>
+
+    <div class="sec rose">
+      <span class="tag">II · La transduction acoustique</span>
+      <h2>Comment le micro interagit avec les ondes</h2>
+
+      <h3>A — Transducteur de pression</h3>
+      <p>La capsule est <strong>fermée à l'arrière</strong>. <strong>Peu importe l'angle</strong> de la source : à distance égale, on a la même pression. Le déplacement de la membrane (= le niveau de sortie) est <strong>proportionnel à la pression</strong> exercée.</p>
+      <div class="callout"><span class="lbl">Conséquence</span>Quel que soit l'angle d'incidence, le niveau reste <b>constant</b> → c'est un micro <b>omnidirectionnel</b>.</div>
+
+      <h3>B — Transducteur à gradient de pression</h3>
+      <p>La capsule est <strong>ouverte des deux côtés</strong>. Le niveau de sortie est proportionnel à la <strong>différence</strong> de pression entre les <strong>2 faces</strong>. L'onde arrive sur la face arrière avec un <em class="k">retard Δt</em> (distance supplémentaire à parcourir).</p>
+      <ul>
+        <li>Selon l'<strong>angle d'incidence</strong>, cette distance/ce Δt varie → le niveau de sortie varie → micro <strong>bidirectionnel</strong> (figure en 8).</li>
+        <li>Quand la distance entre faces <strong>d = λ</strong> (longueur d'onde), le <strong>gradient est nul</strong> (annulation de phase).</li>
+        <li>Corrections : <strong>filtres en peigne</strong> et <strong>capsules très petites</strong>.</li>
+      </ul>
+      <div class="callout"><span class="lbl">Effet de proximité</span><b>Uniquement</b> sur les micros à <b>gradient de pression</b>. Quand on s'approche → <b>boost des basses fréquences</b> (Low Frequency ↑).</div>
+      <div class="callout teal"><span class="lbl">Sibilance — chez TOUS les micros</span>Sons « S » et « ch » : la membrane entre en <b>résonance</b> (ondes stationnaires) vers <b>6–10 kHz</b> → <b>+6 dB</b>. Solution : <b>incliner le micro</b>.</div>
+
+      <h3>C — Transducteur mixte</h3>
+      <p>Capsule <strong>ni complètement fermée ni ouverte</strong> → c'est le cas des micros <strong>cardioïdes</strong> (un mélange de pression + gradient).</p>
+      <p>Famille de directivités, du plus « pression » au plus « gradient » :</p>
+      <p style="font-family:'Space Mono',monospace;font-size:14px;background:#0f0d0b;border:1px solid var(--line);padding:12px;border-radius:8px;color:var(--ink)">
+        Omni → Subcardioïde → Cardioïde → Supercardioïde → Hypercardioïde → Bidirectionnel&nbsp;&nbsp;( + Shotgun, à part )
+      </p>
+      <div class="callout"><span class="lbl">Règle d'or</span>Plus le micro a une <b>part de gradient de pression</b>, plus sa directivité tend vers le <b>bidirectionnel</b> (figure en 8). Plus il est « pression », plus il tend vers l'<b>omni</b>.</div>
+
+      <h3>D — Transducteur à directivité variable</h3>
+      <p><strong>2 capsules cardioïdes montées dos à dos</strong> autour d'une électrode fixe perforée. M1 reste fixe, M2 module le <em class="k">niveau</em> et la <em class="k">phase</em> → on choisit la directivité.</p>
+      <div class="callout teal"><span class="lbl">À retenir</span>Les micros à directivité variable sont <b>statiques</b> (= à condensateur).</div>
+    </div>
+
+    <div class="sec">
+      <span class="tag">III · Autres types de micros</span>
+      <h2>Micros particuliers</h2>
+
+      <h3>PZM / BLM — micros de surface</h3>
+      <p><strong>P</strong>ressure <strong>Z</strong>one <strong>M</strong>icrophone / <strong>B</strong>oundary <strong>L</strong>ayer <strong>M</strong>icrophone. Avec un micro classique, il y a un <strong>problème de phase</strong> entre le son direct et les <em class="k">early reflections</em> → filtrage en peigne. Posé contre une surface, le PZM supprime ce problème.</p>
+      <div class="callout"><span class="lbl">À retenir</span>Ces micros de surface sont <b>omnidirectionnels</b> et <b>statiques</b>.</div>
+
+      <h3>Micro canon (tube à interférence)</h3>
+      <p>Micro à <strong>directivité restreinte</strong> (très directif). Les ondes arrivant de <strong>face</strong> sont amplifiées par la longueur du tube ; les sons venant des <strong>côtés</strong> sont encore plus déphasés/atténués.</p>
+
+      <h3>Réflecteur parabolique</h3>
+      <p>Amplifie le signal en <strong>réinjectant les ondes réfléchies</strong>, sommées <strong>en phase</strong> avec l'onde directe. Ultra directif (ex : capter un oiseau de loin).</p>
+
+      <h3>Micro miniature & HF (sans fil)</h3>
+      <p>Émission HF entre <strong>750–850 MHz</strong>. Ce sont des <strong>micros statiques à électret</strong> dans 99 % des cas. <strong>Signal fort mais gros bruit de fond.</strong> Ex : <em class="k">micro cravate</em>.</p>
+
+      <h3>Micro à lampe</h3>
+      <p>Ex : le <strong>U67</strong>, avec son alimentation haute tension (≈ 400 V), presque toujours via un <strong>boîtier externe</strong>. 2 systèmes de préampli : <strong>à lampe</strong> ou <strong>à transistor</strong>. La lampe = <em class="k">THD plus importante</em> → couleur sympa, surtout dans le bas-médium.</p>
+
+      <h3>Micro numérique</h3>
+      <p>Intègre directement les <strong>convertisseurs numériques</strong>. Pas vraiment utilisé aujourd'hui.</p>
+
+      <h3>Micro stéréo</h3>
+      <p>2 micros dans un seul corps : un <strong>XLR 5 broches</strong> qui se sépare vers <strong>2 XLR 3 broches</strong>.</p>
+
+      <h3>Micro magnétique</h3>
+      <p>Comme un électrodynamique mais <strong>sans membrane</strong> : c'est la <strong>corde</strong> (d'un instrument) qui joue le rôle de membrane en interagissant avec aimant + bobine. <strong>Très forte impédance.</strong></p>
+    </div>
+
+    <div class="sec teal">
+      <span class="tag">IV · Définitions & caractéristiques (À CONNAÎTRE PAR CŒUR)</span>
+      <h2>Le vocabulaire qui rapporte des points</h2>
+
+      <p><span class="def">Sensibilité</span> — niveau de sortie nominal. Mesurée dans des conditions normalisées : <strong>1 Pa = 94 dB SPL</strong>, à <strong>1 m</strong>, dans une <strong>chambre anéchoïque</strong>, à <strong>1 kHz</strong>. Exprimée en <strong>mV/Pa</strong>. Elle doit être <strong>la plus élevée possible</strong>. (La plus faible = micro à ruban.)</p>
+
+      <p><span class="def">Efficacité</span> — la sensibilité exprimée en <strong>dBu ou dBV</strong>. Ex : S = 20 mV/Pa donne <code>20·log(0,02/0,775) ≈ −52 dBu</code>.</p>
+
+      <p><span class="def">Directivité</span> — niveau de sortie en fonction de l'<strong>angle d'incidence</strong>. Représentée par le <strong>diagramme polaire</strong>.</p>
+
+      <div class="callout teal"><span class="lbl">⭐ L'équation polaire (LA formule)</span>
+        <p style="font-family:'Space Mono',monospace;font-size:20px;color:var(--teal);text-align:center;margin:6px 0"><b>S = a + b · cos(Φ)</b></p>
+        <ul style="margin:6px 0">
+          <li><b>S</b> = sensibilité</li>
+          <li><b>a</b> = la part de <em class="k">transducteur de pression</em></li>
+          <li><b>b</b> = la part de <em class="k">gradient de pression</em></li>
+          <li><b>Φ</b> = angle d'incidence entre l'onde et la membrane</li>
+        </ul>
+        Le rapport a/b définit la directivité (a=1,b=0 → omni ; a=b=0,5 → cardioïde ; a=0,b=1 → bidirectionnel).
+      </div>
+
+      <p><span class="def">Angle de captation</span> — angle dans lequel le niveau <strong>ne chute pas de plus de 3 dB</strong> (à 1 kHz).</p>
+      <p><span class="def">Réjection hors axe</span> — angle pour lequel le niveau est <strong>nul</strong>.</p>
+      <p><span class="def">Coloration hors axe</span> — selon l'angle d'incidence, les fréquences <strong>ne sont pas reproduites au même niveau</strong>.</p>
+      <p><span class="def">Facteur de distance</span> — permet de définir, pour un micro directif, à quelle distance on peut le placer pour garder le <strong>même rapport champ direct / champ diffus</strong> qu'un micro omni de référence.</p>
+      <p><span class="def">Niveau maximum admissible</span> — niveau max où le <strong>THD ne dépasse pas 0,5 %</strong>.</p>
+      <p><span class="def">Rapport signal/bruit (SNR)</span> — écart de niveau en dB entre le <strong>bruit de fond du micro</strong> et son <strong>niveau nominal</strong>. <em>Signal to Noise Ratio.</em></p>
+      <p><span class="def">NSE / ENN (bruit propre équivalent)</span> — pression acoustique équivalente au bruit de fond propre du micro. Ex : <strong>8 dBA = très bon</strong>.</p>
+    </div>
+
+    <div class="sec">
+      <span class="tag">Pour résumer — la carte mentale</span>
+      <h2>Comment classer un micro</h2>
+      <div class="pc">
+        <div class="pro"><h4>Par la directivité</h4><ul>
+          <li>Omnidirectionnel</li>
+          <li>Cardioïde</li>
+          <li>Hypercardioïde</li>
+          <li>Bidirectionnel</li>
+        </ul></div>
+        <div class="con" style="background:var(--amber-soft);border-color:#5a4012"><h4 style="color:var(--amber)">Par le type (techno)</h4><ul>
+          <li><b>Dynamique</b> → à bobine / à ruban</li>
+          <li><b>Condensateur (statique)</b> → à électret / à alim phantom</li>
+        </ul></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============ CHIFFRES ============ -->
+  <section class="view" id="chiffres">
+    <div class="sec">
+      <span class="tag">Les chiffres à mémoriser absolument</span>
+      <h2>Si tu retiens ça, tu gagnes des points faciles</h2>
+      <div class="numgrid" id="numgrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ FLASHCARDS ============ -->
+  <section class="view" id="flash">
+    <div class="sec">
+      <span class="tag">Flashcards · clique pour retourner</span>
+      <h2>Teste ta mémoire</h2>
+      <div class="fc-stage">
+        <div class="fc-counter" id="fcCounter"></div>
+        <div class="card" id="card" onclick="flip()">
+          <div class="card-inner">
+            <div class="face front"><div class="pill">Question</div><div class="q" id="fcQ"></div><div class="hint">clique pour voir la réponse</div></div>
+            <div class="face back"><div class="pill">Réponse</div><div class="a" id="fcA"></div></div>
+          </div>
+        </div>
+        <div class="fc-controls">
+          <button class="btn" onclick="prevCard()">← Précédente</button>
+          <button class="btn primary" onclick="nextCard()">Suivante →</button>
+          <button class="btn" onclick="shuffleCards()">🔀 Mélanger</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="view" id="quiz">
+    <div class="sec teal">
+      <span class="tag">Quiz · 15 questions</span>
+      <h2>Mets-toi en condition d'éval</h2>
+      <p style="color:var(--muted)">Choisis une réponse par question. La correction et l'explication s'affichent immédiatement.</p>
+      <div id="quizList"></div>
+    </div>
+    <div class="scorebar">
+      <div class="s">Score : <span id="score">0</span> / <span id="total">0</span></div>
+      <button class="btn primary" onclick="resetQuiz()">↻ Recommencer</button>
+    </div>
+    <div class="bonne" id="bonne" style="display:none"></div>
+  </section>
+
+  <p class="foot">Bon courage Aragorn — relis le cours 2×, fais les flashcards, puis le quiz. Tu connais ça mieux que tu crois.</p>
+</div>
+
+<script>
+/* ---------- Tabs ---------- */
+const tabs=document.querySelectorAll('nav.tabs button');
+const views=document.querySelectorAll('.view');
+tabs.forEach(b=>b.onclick=()=>{
+  tabs.forEach(x=>x.classList.remove('active'));b.classList.add('active');
+  views.forEach(v=>v.classList.remove('active'));
+  document.getElementById(b.dataset.v).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+/* ---------- Chiffres ---------- */
+const nums=[
+  ["2 mV/Pa","Sensibilité du micro <b>dynamique</b> (faible)"],
+  ["15 mV/Pa","Sensibilité du <b>condensateur</b> (élevée)"],
+  ["&lt; 1 mV","Sortie du micro à <b>ruban</b> (la + faible)"],
+  ["+48 V","Tension de l'<b>alimentation phantom</b>"],
+  ["4 × 6,8 kΩ","Résistances de l'alim phantom"],
+  ["94 dB SPL","= 1 Pa (réf. de sensibilité)"],
+  ["1 m / 1 kHz","Distance & fréquence de mesure"],
+  ["&gt; 140 dB","Pression max supportée (dynamique)"],
+  ["15 kHz","Limite HF du dynamique"],
+  ["18 kHz","HF étendue du ruban"],
+  ["20 kHz","HF étendue du condensateur"],
+  ["6–10 kHz","Zone de la <b>sibilance</b> (+6 dB)"],
+  ["3 dB","Chute max → angle de captation"],
+  ["0,5 %","THD max → niveau max admissible"],
+  ["≈ 400 V","Alim haute tension du micro à lampe"],
+  ["750–850 MHz","Fréquences des micros HF"],
+  ["8 dBA","Bruit propre (NSE) = très bon"],
+  ["S=a+b·cosΦ","L'équation polaire"],
+];
+document.getElementById('numgrid').innerHTML=nums.map(n=>
+  `<div class="numcard"><div class="v">${n[0]}</div><div class="l">${n[1]}</div></div>`).join('');
+
+/* ---------- Flashcards ---------- */
+let cards=[
+  ["Qu'est-ce qu'un micro, par définition ?","Un <b>transducteur acoustique → électrique</b> : il transforme une pression acoustique (Pa) en tension électrique (V)."],
+  ["Sur quelle loi physique repose le micro dynamique ?","La loi de <b>Lenz–Faraday</b> : une bobine qui bouge dans un champ magnétique génère une tension induite."],
+  ["Membrane + bobine dans un aimant : quel type de micro ?","Le micro <b>électrodynamique</b> (dynamique)."],
+  ["Quel élément remplace membrane ET bobine dans le micro à ruban ?","Un simple <b>ruban conducteur</b> (plié en accordéon) qui bouge dans le champ d'un aimant."],
+  ["Le micro à condensateur fonctionne comme… ?","Un <b>condensateur</b> polarisé : la membrane (plaque mobile) fait varier l'entrefer d, donc la capacité C, donc la tension U (à charge Q constante)."],
+  ["Différence électret vs condensateur classique ?","L'<b>électret</b> a une membrane déjà polarisée en permanence ; l'alim +48 V ne sert qu'à son <b>préampli interne</b>. Inconvénient : plus de bruit de fond."],
+  ["À quoi servent les 4 résistances de 6,8 kΩ de l'alim phantom ?","À garantir qu'il n'y a <b>pas de différence de potentiel</b> entre point chaud et point froid (le +48 V est en mode commun)."],
+  ["Transducteur de PRESSION → quelle directivité ?","<b>Omnidirectionnel</b> : capsule fermée à l'arrière, même niveau quel que soit l'angle."],
+  ["Transducteur à GRADIENT de pression → quelle directivité ?","<b>Bidirectionnel</b> (figure en 8) : sensible à la différence de pression entre les 2 faces."],
+  ["Quand le gradient de pression devient-il nul ?","Quand la distance entre les faces <b>d = λ</b> (longueur d'onde) → annulation de phase."],
+  ["Sur quels micros l'effet de proximité existe-t-il, et que fait-il ?","Uniquement sur les micros à <b>gradient de pression</b>. En s'approchant → <b>boost des basses fréquences</b>."],
+  ["Qu'est-ce que la sibilance et comment la corriger ?","Résonance de la membrane sur les « S »/« ch » vers <b>6–10 kHz (+6 dB)</b>. On <b>incline le micro</b>."],
+  ["Comment obtient-on un cardioïde ?","Avec un transducteur <b>mixte</b> : un mélange de part pression + part gradient (capsule ni totalement fermée ni ouverte)."],
+  ["Plus un micro a de part de gradient, vers quelle directivité tend-il ?","Vers le <b>bidirectionnel</b> (figure en 8). Plus il est « pression », plus il tend vers l'omni."],
+  ["Comment fonctionne un micro à directivité variable ?","<b>2 capsules cardioïdes dos à dos</b> autour d'une électrode perforée ; on module niveau + phase. Ils sont <b>statiques</b>."],
+  ["Que sont les PZM/BLM et quel problème règlent-ils ?","Micros de <b>surface</b> (omni, statiques) qui suppriment le <b>filtrage en peigne</b> dû aux early reflections."],
+  ["Comment un micro canon devient-il directif ?","Par un <b>tube à interférence</b> : les sons hors axe sont déphasés/atténués, ceux de face amplifiés."],
+  ["Définis la SENSIBILITÉ et ses conditions de mesure.","Niveau de sortie nominal, mesuré à <b>1 Pa (94 dB SPL), 1 m, 1 kHz, en chambre anéchoïque</b>, exprimé en mV/Pa."],
+  ["Donne l'équation polaire et ses termes.","<b>S = a + b·cos(Φ)</b> — a = part de pression, b = part de gradient, Φ = angle d'incidence."],
+  ["Définis l'angle de captation.","L'angle dans lequel le niveau <b>ne chute pas de plus de 3 dB</b> (à 1 kHz)."],
+  ["Niveau maximum admissible : c'est quoi ?","Le niveau max où le <b>THD ne dépasse pas 0,5 %</b>."],
+  ["NSE / ENN : définition ?","Le <b>bruit propre équivalent</b> du micro (pression acoustique équivalente à son bruit de fond). Ex : 8 dBA = très bon."],
+];
+let order=cards.map((_,i)=>i), pos=0, flipped=false;
+function render(){
+  const c=cards[order[pos]];
+  document.getElementById('fcQ').innerHTML=c[0];
+  document.getElementById('fcA').innerHTML=c[1];
+  document.getElementById('fcCounter').textContent=`Carte ${pos+1} / ${cards.length}`;
+  document.getElementById('card').classList.remove('flipped');flipped=false;
+}
+function flip(){flipped=!flipped;document.getElementById('card').classList.toggle('flipped',flipped);}
+function nextCard(){pos=(pos+1)%cards.length;render();}
+function prevCard(){pos=(pos-1+cards.length)%cards.length;render();}
+function shuffleCards(){for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]];}pos=0;render();}
+render();
+
+/* ---------- Quiz ---------- */
+const quiz=[
+  {q:"Un microphone est avant tout…",o:["Un transducteur acoustique → électrique","Un amplificateur de tension","Un convertisseur numérique","Un filtre passe-bande"],c:0,e:"Il convertit une pression acoustique (Pa) en tension électrique (V)."},
+  {q:"Quel micro ne nécessite PAS d'alimentation externe ?",o:["Le micro à condensateur","Le micro électrodynamique","Le micro à électret","Le micro à lampe"],c:1,e:"Le dynamique est autonome (Lenz-Faraday) ET robuste. Les statiques ont besoin du +48 V."},
+  {q:"Sur quelle loi repose le micro dynamique ?",o:["Loi d'Ohm","Loi de Coulomb","Loi de Lenz–Faraday","Loi de Boyle"],c:2,e:"La bobine qui bouge dans le champ magnétique crée une tension induite (induction)."},
+  {q:"Dans un micro à ruban, le ruban remplace…",o:["Seulement la membrane","Seulement la bobine","La membrane ET la bobine","L'aimant"],c:2,e:"Version allégée du dynamique : le ruban fait tout, d'où une tension très faible."},
+  {q:"Quel micro a la sensibilité la PLUS FAIBLE ?",o:["Condensateur","Électret","Ruban","Lampe"],c:2,e:"Le ruban sort moins de 1 mV → il faut des préamplis très chers."},
+  {q:"L'équation polaire s'écrit :",o:["S = a · b · cosΦ","S = a + b·cos(Φ)","S = a − b/Φ","S = a·cos(Φ) + b·sin(Φ)"],c:1,e:"a = part de pression, b = part de gradient, Φ = angle d'incidence."},
+  {q:"Un transducteur de PRESSION pure donne quelle directivité ?",o:["Bidirectionnel","Cardioïde","Hypercardioïde","Omnidirectionnel"],c:3,e:"Capsule fermée à l'arrière : même niveau quel que soit l'angle → omni."},
+  {q:"Un transducteur à GRADIENT de pression pur donne :",o:["Omnidirectionnel","Bidirectionnel (figure en 8)","Cardioïde","Subcardioïde"],c:1,e:"Il répond à la différence de pression entre les 2 faces → figure en 8."},
+  {q:"L'effet de proximité concerne :",o:["Tous les micros","Seulement les micros à gradient de pression","Seulement les omnis","Seulement les micros à charbon"],c:1,e:"En s'approchant, les basses fréquences sont boostées — uniquement sur les micros à gradient."},
+  {q:"La sibilance se situe vers quelle plage de fréquences ?",o:["100–300 Hz","1–2 kHz","6–10 kHz","15–20 kHz"],c:2,e:"Résonance de la membrane (+6 dB) sur les « S »/« ch ». Solution : incliner le micro."},
+  {q:"L'alimentation phantom délivre :",o:["+12 V","+24 V","+48 V","+400 V"],c:2,e:"+48 V via 4 résistances de 6,8 kΩ, sans différence de potentiel entre chaud et froid."},
+  {q:"La sensibilité se mesure dans quelles conditions ?",o:["1 Pa, 1 m, 1 kHz, chambre anéchoïque","1 V, 2 m, 10 kHz","94 dB, 5 m, 500 Hz","48 V, 1 m, 1 kHz"],c:0,e:"1 Pa = 94 dB SPL, à 1 m, 1 kHz, en chambre anéchoïque. Exprimée en mV/Pa."},
+  {q:"Le niveau maximum admissible correspond à un THD qui ne dépasse pas :",o:["0,05 %","0,5 %","5 %","10 %"],c:1,e:"Au-delà de 0,5 % de distorsion harmonique, on considère le micro saturé."},
+  {q:"Les micros à directivité variable utilisent :",o:["1 ruban + 1 aimant","2 capsules cardioïdes dos à dos","Un tube à interférence","Une parabole"],c:1,e:"Deux cardioïdes dos à dos autour d'une électrode perforée ; on module niveau et phase. Ils sont statiques."},
+  {q:"Plus un micro a une grande part de gradient de pression, plus sa directivité tend vers :",o:["L'omnidirectionnel","Le bidirectionnel","Le shotgun","Aucune directivité"],c:1,e:"Plus de gradient → figure en 8 (bidirectionnel). Plus de pression → omni."},
+];
+const list=document.getElementById('quizList');
+let answered=new Array(quiz.length).fill(false), score=0;
+document.getElementById('total').textContent=quiz.length;
+function buildQuiz(){
+  list.innerHTML='';
+  quiz.forEach((item,qi)=>{
+    const block=document.createElement('div');block.className='q-block';
+    block.innerHTML=`<div class="qn">QUESTION ${qi+1}</div><div class="qt">${item.q}</div>`;
+    item.o.forEach((opt,oi)=>{
+      const b=document.createElement('button');b.className='opt';b.textContent=opt;
+      b.onclick=()=>choose(qi,oi,block);
+      block.appendChild(b);
+    });
+    const ex=document.createElement('div');ex.className='expl';ex.innerHTML='<b>Explication : </b>'+item.e;
+    block.appendChild(ex);
+    list.appendChild(block);
+  });
+}
+function choose(qi,oi,block){
+  if(answered[qi])return;answered[qi]=true;
+  const opts=block.querySelectorAll('.opt');
+  opts.forEach((o,i)=>{o.classList.add('disabled');
+    if(i===quiz[qi].c)o.classList.add('correct');
+    if(i===oi&&oi!==quiz[qi].c)o.classList.add('wrong');});
+  if(oi===quiz[qi].c)score++;
+  block.querySelector('.expl').classList.add('show');
+  document.getElementById('score').textContent=score;
+  if(answered.every(Boolean)){
+    const b=document.getElementById('bonne');b.style.display='block';
+    let msg = score>=13?`🏆 ${score}/${quiz.length} — Tu es prêt, fonce !`:
+              score>=9 ?`💪 ${score}/${quiz.length} — Solide ! Revois juste les questions ratées.`:
+                        `📚 ${score}/${quiz.length} — Relis le cours + flashcards, puis refais le quiz. Tu vas y arriver.`;
+    b.textContent=msg;
+  }
+}
+function resetQuiz(){answered.fill(false);score=0;
+  document.getElementById('score').textContent=0;
+  document.getElementById('bonne').style.display='none';buildQuiz();}
+buildQuiz();
+</script>
